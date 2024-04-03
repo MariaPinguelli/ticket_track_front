@@ -3,6 +3,6 @@
 ## Ferramentas
 - React e NextJs
 
-## Fuções dos Participantes
+## Funções dos Participantes
 - Letícia: team leader
 - Carlos: team member
