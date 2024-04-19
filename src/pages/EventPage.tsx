@@ -29,6 +29,8 @@ export default function EventPage() {
   
   }, []);
 
+
+
   async function getEvents() {
     return await axios.get('http://localhost:3000/events').
       then(res => console.log('getevents', res.data)).
@@ -36,10 +38,11 @@ export default function EventPage() {
   }
 
   getEvents();
+
   return (
     <EventContainer>
       {event.length === 0 ? <div><p>Não há nenhum evento registrado</p></div> :
-      event.map((event) => <div> Oi</div>)}
+      event.map((event) => <div>{event.name}</div>)}
 
     </EventContainer>
   )
@@ -53,6 +56,4 @@ const EventContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-
 `
