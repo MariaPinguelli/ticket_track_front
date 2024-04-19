@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components'
 import LogoImage from '../assets/ticket-logo.png'
@@ -18,7 +18,7 @@ export default function RegisterPage() {
       return
     }
 
-    const requisicao = axios.post(`${import.meta.env.BASE_URL}/users`, {name,email,password})
+    return axios.post(`http://localhost:3000/users`, {name,email,password})
       .then(res => {
         console.log(res.data);
         
