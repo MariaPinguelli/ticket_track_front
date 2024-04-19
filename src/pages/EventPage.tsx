@@ -28,10 +28,11 @@ export default function EventPage() {
       });
   
   }, []);
+  /// O atributo name existe, so não foi definido em nenhum lugar aqui
   return (
     <EventContainer>
       {event.length === 0 ? <div><p>Não há nenhum evento registrado</p></div> :
-      event.map((event) => <div> Oi</div>)}
+      event.map((event) => <div>{event.name}</div>)}
 
     </EventContainer>
   )
@@ -45,6 +46,4 @@ const EventContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-
 `
