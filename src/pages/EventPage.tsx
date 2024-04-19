@@ -28,6 +28,14 @@ export default function EventPage() {
       });
   
   }, []);
+
+  async function getEvents() {
+    return await axios.get('http://localhost:3000/events').
+      then(res => console.log('getevents', res.data)).
+      catch(err => console.log(err));
+  }
+
+  getEvents();
   return (
     <EventContainer>
       {event.length === 0 ? <div><p>Não há nenhum evento registrado</p></div> :
