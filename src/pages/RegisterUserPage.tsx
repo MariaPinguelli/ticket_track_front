@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components'
-import LogoImage from '../assets/ticket-logo.png'
+import LogoImage from '../assets/ticket-logo.png';
+import { LiaUserCircleSolid } from "react-icons/lia";
 import axios from 'axios';
 
 export default function RegisterPage() {
@@ -28,6 +29,9 @@ export default function RegisterPage() {
 
   return (
     <Container>
+      <Link to={'/delete'} >
+        <LiaUserCircleSolid size={60}/>
+      </Link>
       <Logo src={LogoImage}></Logo>
       <Form onSubmit={handleRegister}>
         <input
@@ -73,6 +77,13 @@ width: 100%;
 justify-content: center;
 align-items: center;
 flex-direction: column;
+  a{
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    color: black;
+  }
 `
 const Logo = styled.img`
 height: 150px;
