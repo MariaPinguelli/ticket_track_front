@@ -8,6 +8,21 @@ async function handleClick() {
       then(res => console.log('res', res.data)).
       catch(err => console.log('erro'))
   }
+async function updateUser(id, userData) {
+  try {
+    const response = await axios.put(`hhttp://localhost:3000/users/1`, userData);
+    
+    if (!response.ok) {
+      throw new Error('Failed to update user');
+    }
+
+    console.log('User updated successfully');
+  } catch (error) {
+    console.error('Error updating user:', error.message);
+  }
+}
+
+export default updateUser;
 
   async function getUsersTest() {
     return await axios.get('http://localhost:3000/users').
