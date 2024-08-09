@@ -10,7 +10,7 @@ export default function App() {
       <Routes>
         <Route path="/register" element={<RegisterPage/>} />
         <Route path="/events" element={<EventPage />} />
-        <Route path="/edit" element={<EditUser />} />
+        <Route path="/profile" element={<EditUser />} />
       </Routes>
     </BrowserRouter>
   )
