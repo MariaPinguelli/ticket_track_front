@@ -1,30 +1,27 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Navbar from "../components/Navbar";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 
 export default function EventPage() {
-  const [event, setEvent] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
+  const [event, setEvent] = useState([{id:null, name:null, description:null}]);
 
   console.log('event', event);
   useEffect(() => {
-        // Faz a solicitação GET para a URL desejada
     const response = axios.get('http://localhost:3000/events');
     response.then(res => {
       const novo = res.data;
-      console.log(res);
       setEvent(novo);
-      console.log(novo);
-      //setLoading(false);
     }).
       catch(err => {
         console.log(err.response.data);
-        setError(error);
-        setLoading(false);
-
       });
   
   }, []);
@@ -37,23 +34,40 @@ export default function EventPage() {
       catch(err => console.log(err));
   }
 
-  getEvents();
+getEvents();
+console.log("evento novo", event);
 
   return (
+  <Container>
+   <Navbar></Navbar>
     <EventContainer>
-      {event.length === 0 ? <div><p>Não há nenhum evento registrado</p></div> :
-      event.map((event) => <div>{event.name}</div>)}
+      {event.length === 0 ? <Box display={'flex'}><CircularProgress/></Box> :
+        event.map(event =>
+          <Card key={event.id} sx={{ height: 300, width: 280, bgcolor:'white', display:'flex' }}>
+            <CardContent sx={{display:'flex', flexDirection:'column'}}>
+              <Typography sx={{fontSize: 18, fontWeight:'bold', fontFamily:"Roboto, sans serif"}} color={'GrayText'}>{event.name}</Typography>
+              <Typography sx={{ fontSize: 16, color: '#590925', fontWeight: "400" }}>{event.description}</Typography>
+            </CardContent>
+          </Card>)}
 
     </EventContainer>
+  </Container>
   )
 }
 
-const EventContainer = styled.div`
-  background-color: aqua;
+const Container = styled.div`
+  display: flex;
+  background-color: #F5F5F5;
   height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`
+const EventContainer = styled.div`
+  background-color: #F5F5F5;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  gap: 20px
 `

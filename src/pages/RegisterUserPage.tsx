@@ -22,6 +22,7 @@ export default function RegisterPage() {
     return axios.post(`http://localhost:3000/users`, {name,email,password})
       .then(res => {
         console.log(res.data);
+        navigate('/events')
         
       })
       .catch(e => console.log(e.reponse.data));
@@ -29,7 +30,7 @@ export default function RegisterPage() {
 
   return (
     <Container>
-      <Link to={'/delete'} >
+      <Link to={'/edit'} >
         <LiaUserCircleSolid size={60}/>
       </Link>
       <Logo src={LogoImage}></Logo>
