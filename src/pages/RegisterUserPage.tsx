@@ -1,8 +1,9 @@
 import { useContext, useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import LogoImage from '../assets/ticket-logo.png';
 import axios from 'axios';
+import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -37,7 +38,7 @@ export default function RegisterPage() {
   return (
     <Container>
       <Logo src={LogoImage}></Logo>
-      <Typography sx={{ fontSize: 22, fontWeight: 'bold', color:'#384E77', fontFamily:"Roboto" }}>Cadastre-se</Typography>
+      <Typography sx={{ fontSize: 22, fontWeight: 'bold', color:'#384E77', fontFamily:"Roboto", textDecoration:"none" }}>Cadastre-se</Typography>
       <Box
         component={"form"}
         sx={{
@@ -78,6 +79,8 @@ export default function RegisterPage() {
           onChange={e => setConfirm(e.target.value)}
         />
         <Button variant="contained" type='submit'>Cadastrar</Button>
+        <Typography>Já possui cadastro?<Link href="/login"> Faça o login</Link></Typography>
+
       </Box>
 
     </Container>

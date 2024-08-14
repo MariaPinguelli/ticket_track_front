@@ -2,15 +2,13 @@ import styled from "styled-components";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from "react";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import MenuIcon from '@mui/icons-material/Menu';
-
-
 
 
 export default function Navbar() {
@@ -20,11 +18,11 @@ export default function Navbar() {
   const [onProfile, setOnProfile] = useState(true);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
-    navigate("/profile");
     setOnProfile(true);
   };
 
@@ -32,6 +30,24 @@ export default function Navbar() {
     navigate("/events");
     setOnProfile(false);
   }
+
+  function handleRoutes(e:any) {
+    switch (e) {
+      case "cadastro":
+        navigate("/register");
+        break;
+      case "login":
+        navigate("/login");
+        break;
+      case "profile":
+        navigate("/profile");
+        break;
+      default:
+        navigate("/events");
+    }
+    handleClose();
+
+  } 
 
 
   return (
@@ -58,10 +74,10 @@ export default function Navbar() {
           MenuListProps={{
           'aria-labelledby': 'basic-button',
           }}>
-          <MenuItem onClick={handleClose}>Cadastre-se</MenuItem>
-          <MenuItem onClick={handleClose}>Entrar</MenuItem>
-          <MenuItem onClick={handleClose}>Minha Conta</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
+          <MenuItem id="cadastro" onClick={e => handleRoutes(e.currentTarget.id)}>Cadastre-se</MenuItem>
+          <MenuItem id="login" onClick={e=> handleRoutes(e.currentTarget.id)}>Login</MenuItem>
+          <MenuItem id="profile" onClick={e=> handleRoutes(e.currentTarget.id)}>Minha Conta</MenuItem>
+          <MenuItem id="logout" onClick={e=> handleRoutes(e.currentTarget.id)}>Logout</MenuItem>
         </Menu>
       </Stack>
 

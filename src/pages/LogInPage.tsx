@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import LogoImage from '../assets/ticket-logo.png';
 import axios from 'axios';
@@ -7,6 +7,8 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+
 
 
 
@@ -34,11 +36,11 @@ export default function LogInPage() {
   return (
     <Container>
       <Logo src={LogoImage}></Logo>
-      <Typography sx={{ fontSize: 22, fontWeight: 'bold', color:'#384E77', fontFamily:"Roboto" }}>Cadastre-se</Typography>
+      <Typography sx={{ fontSize: 22, fontWeight: 'bold', color:'#384E77', fontFamily:"Roboto" }}>Login</Typography>
       <Box
         component={"form"}
         sx={{
-          display: "flex", flexDirection: "column", height: "300px", justifyContent: "space-between",
+          display: "flex", flexDirection: "column", height: "270px", justifyContent: "space-between",
           alignItems:"center", width:"350px"
         }}
         onSubmit={handleRegister}>
@@ -58,7 +60,10 @@ export default function LogInPage() {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
-        <Button variant="contained" type='submit'>Cadastrar</Button>
+        <Button variant="contained" type='submit'>Entrar</Button>
+        
+          <Typography>Não tem cadastro?<Link href="/register"> Cadastre-se</Link></Typography>
+        
       </Box>
 
     </Container>
@@ -84,6 +89,4 @@ flex-direction: column;
 const Logo = styled.img`
 height: 150px;
 width: 160  px;
-
-
 `
