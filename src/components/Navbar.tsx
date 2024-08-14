@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import PersonIcon from '@mui/icons-material/Person';
 import IconButton from '@mui/material/IconButton';
 import { Link, useNavigate } from "react-router-dom";
 import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useState } from "react";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import MenuIcon from '@mui/icons-material/Menu';
+
 
 
 
@@ -14,19 +17,30 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
+  const [onProfile, setOnProfile] = useState(true);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
     navigate("/profile");
-
+    setOnProfile(true);
   };
+
+  const handleBackClick = () => {
+    navigate("/events");
+    setOnProfile(false);
+  }
 
 
   return (
     <Header>
-      <Stack display={'flex'} justifyContent={'center'} alignItems={"center"}>
+      <Stack display={'flex'} justifyContent={'space-between'} alignItems={"center"} width={'100%'} flexDirection={'row'}>
+        {onProfile ? <IconButton sx={{ color: "#384E77", marginLeft: "80" }}
+          onClick={handleBackClick}>
+          <ArrowBackIosNewIcon />
+        </IconButton> : null}
         <IconButton
           sx={{ color: "#384E77", marginLeft: "80" }}
           id="basic-button"
@@ -34,7 +48,7 @@ export default function Navbar() {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}>
-          <PersonIcon fontSize="large" ></PersonIcon>
+          <MenuIcon/>
         </IconButton>
         <Menu
           id="basic-menu"
@@ -43,11 +57,14 @@ export default function Navbar() {
           onClose={handleClose}
           MenuListProps={{
           'aria-labelledby': 'basic-button',
-        }}>
+          }}>
+          <MenuItem onClick={handleClose}>Cadastre-se</MenuItem>
+          <MenuItem onClick={handleClose}>Entrar</MenuItem>
           <MenuItem onClick={handleClose}>Minha Conta</MenuItem>
           <MenuItem onClick={handleClose}>Logout</MenuItem>
         </Menu>
       </Stack>
+
    </Header>
  )
 

@@ -6,7 +6,6 @@ import TextField from '@mui/material/TextField';
 import Navbar from "../components/Navbar";
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -32,22 +31,22 @@ const handleNestedList = () => {
     setOpen(!open);
 };
 
-
+  console.log("email editado", emailEdit);
 async function handleClick() {
     return await axios.delete(`http://localhost:3000/users/2`).
       then(res => console.log('res', res.data)).
       catch(err => console.log('erro'))
   }
-async function handleUpdate(e:any) {
+async function handleUpdate(e: { preventDefault: () => void; }) {
   e.preventDefault();
-  return await axios.put(`hhttp://localhost:3000/users/2`, { nameEdit, emailEdit, passwordEdit }).
+  const result:void = await axios.put(`hhttp://localhost:3000/users/9`, { nameEdit, emailEdit, passwordEdit}).
     then(res => {
       console.log(res.data);
       console.log("Usuário editado");
     }).
-    catch(err => console.log(err.response));
+    catch(err => console.log(err.response.data));
+  console.log("result",result);
 }
-
 
   async function getUsersTest() {
     return await axios.get('http://localhost:3000/users').
@@ -110,14 +109,11 @@ async function handleUpdate(e:any) {
         </List>
       </SideBar>
       <ProfileContainer>
-      <Box component={'form'}
+      <Box component={'form'} onSubmit={handleUpdate}
         sx={{
           display: "flex", flexDirection: "column", height: "300px", justifyContent: "space-between",
           alignItems:"center", width:"350px"
-        }}
-
-        onSubmit={handleUpdate}>
-      
+        }}>
         <TextField
           id="name"
           label='Nome'

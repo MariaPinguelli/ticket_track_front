@@ -7,15 +7,17 @@ import Typography from '@mui/material/Typography';
 import Navbar from "../components/Navbar";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import * as React from "react";
 
 
 
 export default function EventPage() {
-  const [event, setEvent] = useState([{id:null, name:null, description:null}]);
+  const [event, setEvent] = useState([{ id: null, name: null, description: null }]);
+
 
   console.log('event', event);
   useEffect(() => {
-    const response = axios.get('http://localhost:3000/events');
+    const response = axios.get(`${import.meta.env.VITE_API_URL}/events`);
     response.then(res => {
       const novo = res.data;
       setEvent(novo);
@@ -29,7 +31,7 @@ export default function EventPage() {
 
 
   async function getEvents() {
-    return await axios.get('http://localhost:3000/events').
+    return await axios.get(`${import.meta.env.VITE_API_URL}/events`).
       then(res => console.log('getevents', res.data)).
       catch(err => console.log(err));
   }

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components'
 import LogoImage from '../assets/ticket-logo.png';
@@ -7,25 +7,22 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { AuthContext } from '../AuthContext';
 
 
-export default function RegisterPage() {
-  const [name, setName] = useState('');
+
+export default function LogInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
   const navigate = useNavigate();
-  const { BASE_URL } = useContext(AuthContext);
 
   function handleRegister(e: { preventDefault: () => void; }) {
     e.preventDefault();
-    if (password.length < 6 || password !== confirm) {
+    if (password.length < 6) {
       alert('Senha inválida!');
       return
     }
 
-    return axios.post(`${BASE_URL}/users`, {name,email,password})
+    return axios.post(`${import.meta.env.VITE_API_URL}/users`, {name,email,password})
       .then(res => {
         console.log(res.data);
         navigate('/events')
@@ -46,14 +43,6 @@ export default function RegisterPage() {
         }}
         onSubmit={handleRegister}>
         <TextField
-          id='name'
-          label='Nome'
-          type='text'
-          required
-          value={name}
-          onChange={e => setName(e.target.value)}
-        />
-        <TextField
           id='email'
           label='Email'
           type='email'
@@ -68,14 +57,6 @@ export default function RegisterPage() {
           required
           value={password}
           onChange={e => setPassword(e.target.value)}
-        />
-        <TextField
-          id='confirm-password'
-          label='Confirme a senha'
-          type='password'
-          required
-          value={confirm}
-          onChange={e => setConfirm(e.target.value)}
         />
         <Button variant="contained" type='submit'>Cadastrar</Button>
       </Box>
