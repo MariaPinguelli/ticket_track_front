@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import {useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import LogoImage from '../assets/ticket-logo.png';
@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-
+import { AuthContext } from '../AuthContext';
 
 
 
@@ -16,18 +16,25 @@ export default function LogInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { setUser, BASE_URL } = useContext(AuthContext);
 
-  function handleRegister(e: { preventDefault: () => void; }) {
-    e.preventDefault();
-    if (password.length < 6) {
-      alert('Senha inválida!');
-      return
+  useEffect(() => {
+    const lsUser = JSON.parse(localStorage.getItem("user") as string);
+    if (lsUser !== null) {
+      setUser(lsUser);
+
     }
+  }, []);
 
-    return axios.post(`${import.meta.env.VITE_API_URL}/users`, {name,email,password})
+  function handleLogin(e: { preventDefault: () => void; }) {
+    e.preventDefault();
+    const body = { email, password };
+    return axios.post(`${BASE_URL}/users`, body)
       .then(res => {
-        console.log(res.data);
-        navigate('/events')
+        const { name, email, token } = res.data;
+        setUser({ name, email, token });
+        localStorage.setItem("user", JSON.stringify({ name, email, token }));
+        navigate('/profile');
         
       })
       .catch(e => console.log(e.reponse.data));
@@ -43,7 +50,7 @@ export default function LogInPage() {
           display: "flex", flexDirection: "column", height: "270px", justifyContent: "space-between",
           alignItems:"center", width:"350px"
         }}
-        onSubmit={handleRegister}>
+        onSubmit={handleLogin}>
         <TextField
           id='email'
           label='Email'
@@ -62,7 +69,7 @@ export default function LogInPage() {
         />
         <Button variant="contained" type='submit'>Entrar</Button>
         
-          <Typography>Não tem cadastro?<Link href="/register"> Cadastre-se</Link></Typography>
+          <Typography>Não tem cadastro?<Link href="/profile"> Cadastre-se</Link></Typography>
         
       </Box>
 

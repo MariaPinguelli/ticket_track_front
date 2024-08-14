@@ -16,7 +16,7 @@ export default function App() {
         <Routes>
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LogInPage/>}/>
-          <Route path="/events" element={<EventPage />} />
+          <Route path="/" element={<EventPage />} />
           <Route path="/profile" element={<EditUser />} />
         </Routes>
       </AuthContext.Provider>

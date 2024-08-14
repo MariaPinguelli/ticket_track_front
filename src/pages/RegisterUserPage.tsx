@@ -29,7 +29,7 @@ export default function RegisterPage() {
     return axios.post(`${BASE_URL}/users`, {name,email,password})
       .then(res => {
         console.log(res.data);
-        navigate('/events')
+        navigate('/login')
         
       })
       .catch(e => console.log(e.reponse.data));
