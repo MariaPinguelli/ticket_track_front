@@ -27,7 +27,7 @@ export default function Navbar() {
   };
 
   const handleBackClick = () => {
-    navigate("/events");
+    navigate("/");
     setOnProfile(false);
   }
 
@@ -55,7 +55,7 @@ export default function Navbar() {
       <Stack display={'flex'} justifyContent={'space-between'} alignItems={"center"} width={'100%'} flexDirection={'row'}>
         {onProfile ? <IconButton sx={{ color: "#384E77", marginLeft: "80" }}
           onClick={handleBackClick}>
-          <ArrowBackIosNewIcon />
+          <ArrowBackIosNewIcon/>
         </IconButton> : null}
         <IconButton
           sx={{ color: "#384E77", marginLeft: "80" }}

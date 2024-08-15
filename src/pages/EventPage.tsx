@@ -1,26 +1,22 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import CardList from "../components/CardList";
 import Navbar from "../components/Navbar";
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
-import * as React from "react";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+
 
 
 
 export default function EventPage() {
-  const [event, setEvent] = useState([{ id: null, name: null, description: null }]);
+  const [evento, setEvento] = useState([{ id: null, name: null, description: null }]);
 
-
-  console.log('event', event);
   useEffect(() => {
     const response = axios.get(`${import.meta.env.VITE_API_URL}/events`);
     response.then(res => {
       const novo = res.data;
-      setEvent(novo);
+      setEvento(novo);
     }).
       catch(err => {
         console.log(err.response.data);
@@ -28,8 +24,8 @@ export default function EventPage() {
   
   }, []);
 
-
-
+ 
+  
   async function getEvents() {
     return await axios.get(`${import.meta.env.VITE_API_URL}/events`).
       then(res => console.log('getevents', res.data)).
@@ -37,20 +33,21 @@ export default function EventPage() {
   }
 
 getEvents();
-console.log("evento novo", event);
+
 
   return (
   <Container>
    <Navbar></Navbar>
     <EventContainer>
-      {event.length === 0 ? <Box display={'flex'}><CircularProgress/></Box> :
-        event.map(event =>
-          <Card key={event.id} sx={{ height: 300, width: 280, bgcolor:'white', display:'flex' }}>
-            <CardContent sx={{display:'flex', flexDirection:'column'}}>
-              <Typography sx={{fontSize: 18, fontWeight:'bold', fontFamily:"Roboto, sans serif"}} color={'GrayText'}>{event.name}</Typography>
-              <Typography sx={{ fontSize: 16, color: '#590925', fontWeight: "400" }}>{event.description}</Typography>
-            </CardContent>
-          </Card>)}
+      { evento.length === 0 ? <Box display={'flex'}><CircularProgress/></Box> :
+          evento && evento.map((evento: { id: any; description: any; name: any; })=>
+            <CardList
+            key={evento.id}
+            description={evento.description}
+            id={evento.id}
+            name={evento.name}>
+            </CardList>)
+      }
 
     </EventContainer>
   </Container>
@@ -71,5 +68,7 @@ const EventContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px
+  gap: 20px;
+  overflow-y: scroll;
+  
 `

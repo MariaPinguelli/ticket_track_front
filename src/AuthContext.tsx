@@ -1,9 +1,11 @@
-import { createContext } from "react";
+import { createContext, Dispatch, SetStateAction } from "react";
 
 
 
 export interface AuthContextType {
-  user: {name:string, email:string, token:string},
+  user: string,
+  favorite: Event[],
+  setFavorite: Dispatch<SetStateAction<Event[]>>,
   setUser: Function,
   BASE_URL:string
 }
