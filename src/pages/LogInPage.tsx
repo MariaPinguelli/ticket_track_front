@@ -28,13 +28,13 @@ export default function LogInPage() {
 
   function handleLogin(e: { preventDefault: () => void; }) {
     e.preventDefault();
+    navigate('/profile');
     const body = { email, password };
     return axios.post(`${BASE_URL}/users`, body)
       .then(res => {
         const { name, email, token } = res.data;
         setUser({ name, email, token });
         localStorage.setItem("user", JSON.stringify({ name, email, token }));
-        navigate('/profile');
         
       })
       .catch(e => console.log(e.reponse.data));

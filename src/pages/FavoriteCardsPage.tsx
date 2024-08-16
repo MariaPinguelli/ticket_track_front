@@ -30,7 +30,7 @@ export default function FavoritePage() {
   return (
 <>  
   <Typography sx={{color:"GrayText", marginTop:"100px", fontWeight:"bold"}}>MEUS FAVORITOS</Typography>
-    <Box sx={{ flexGrow: 1, bgcolor:"red", marginTop: "30px", padding:"10px", marginLeft:"40px" }}>
+    <Box sx={{  marginTop: "90px", padding:"10px", marginLeft:"40px", maxWidth:"900px" }}>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 6, md: 12 }} >
         {favorite.length == 0 ? <p>Você ainda não possui eventos favoritos</p> :
           favorite.map((f: any) =>
@@ -42,7 +42,7 @@ export default function FavoritePage() {
                   <Typography sx={{ fontSize: 16, color: '#590925', fontWeight: "400" }}>{f.description}</Typography>
                 </TypographyContainer>
                 <IconButton aria-label={f.id} sx={{width:"40px"}} onClick={e => handleFavorites(e.currentTarget.ariaLabel)}>
-                <BookmarkIcon sx={{ display: "flex", left: "0", bottom: "0", alignItems: "flex-end" }} />
+                  <BookmarkIcon sx={{ display: "flex", left: "0", bottom: "0", alignItems: "flex-end" }} />
                 </IconButton>  
               </CardContent>
             </Card>

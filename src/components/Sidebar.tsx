@@ -12,18 +12,33 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import AddIcon from '@mui/icons-material/Add';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-
+import { useState } from "react";
 
 export default function Sidebar(props:any) {
   const { open, setOpen } = props;
+  const [openEdtP, setopenEdtP] = useState(true);
+  const [openFav, setOpenFav] = useState(false);
 
   const handleNestedList = () => {
     setOpen(!open);
-};
+  };
+  
+  function handleClicks(e:any) {
+    switch (e) {
+      case "edit-perfil":
+        setopenEdtP(!openEdtP);
+        break;
+      case "favoritos":
+        setOpenFav(!openFav);
+        break;
+    }
+
+  }
+
   return (
-      <SideBar>
+      <SideBar openEdtP={openEdtP} openFav={openFav}>
         <List sx={{bgcolor:"#DBDBDB", height:"300px"}}>
-          <ListItemButton>
+          <ListItemButton id="edit-perfil" key={"edit-perfil"} onClick={event => handleClicks(event.currentTarget.id)}>
             <ListItemIcon sx={{display:"flex", justifyContent:"center", alignItems:"center", gap:"10px"}}>
               <EditIcon sx={{ color: "#564256"}}></EditIcon>
               <ListItemText primary="EDITAR PERFIL" sx={{color:"#564256", fontWeight:"bold"}}></ListItemText>
@@ -39,21 +54,21 @@ export default function Sidebar(props:any) {
           </ListItemButton>  
           <Divider/>
           <Collapse  in={open} timeout="auto" unmountOnExit>
-            <ListItemButton sx={{pl:4}}>
+            <ListItemButton sx={{pl:4}} id="favoritos" key={"favoritos"} onClick={event => handleClicks(event.currentTarget.id)}>
               <ListItemIcon sx={{display:"flex", justifyContent:"center", alignItems:"center", gap:"10px"}}>
                 <BookmarkIcon sx={{ color: "#564256"}}></BookmarkIcon>
                 <ListItemText primary="FAVORITOS" sx={{color:"#564256", fontWeight:"bold"}}></ListItemText>
               </ListItemIcon>
             </ListItemButton>
             <Divider />
-            <ListItemButton sx={{pl:4}}>
+            <ListItemButton sx={{pl:4}} id="criar-evento" key={"criar-evento"} onClick={event => handleClicks(event.currentTarget.id)}>
               <ListItemIcon sx={{display:"flex", justifyContent:"center", alignItems:"center", gap:"10px"}}>
                 <AddIcon sx={{ color: "#564256"}}></AddIcon>
                 <ListItemText primary="CRIAR EVENTO" sx={{color:"#564256", fontWeight:"bold"}}></ListItemText>
               </ListItemIcon>
             </ListItemButton>
             <Divider/>
-            <ListItemButton sx={{pl:4}}>
+            <ListItemButton sx={{pl:4}} id="edit-evento" key={"edit-evento"} onClick={event => handleClicks(event.currentTarget.id)}>
               <ListItemIcon sx={{display:"flex", justifyContent:"center", alignItems:"center", gap:"10px"}}>
                 <EditIcon sx={{ color: "#564256"}}></EditIcon>
                 <ListItemText primary="EDITAR EVENTO" sx={{color:"#564256", fontWeight:"bold"}}></ListItemText>
@@ -61,12 +76,6 @@ export default function Sidebar(props:any) {
             </ListItemButton>
             <Divider/>  
           </Collapse>
-          <ListItemButton>
-            <ListItemIcon sx={{display:"flex", justifyContent:"center", alignItems:"center", gap:"10px"}}>
-              <DeleteIcon sx={{ color: "#564256"}}></DeleteIcon>
-              <ListItemText primary="EXCLUIR CONTA" sx={{color:"#564256", fontWeight:"bold"}}></ListItemText>
-            </ListItemIcon>
-          </ListItemButton>
           <Divider />
         </List>
       </SideBar>

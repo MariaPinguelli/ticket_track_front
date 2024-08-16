@@ -10,21 +10,22 @@ import { AuthContext } from '../AuthContext';
 
 export default function CardList(props: any) {
   const { favorite, setFavorite } = useContext(AuthContext);
-  const { id, description, name} = props;
+  
+  const { id, description, name, evento} = props;
 
-  function handleFavorites(e:any) {
-    console.log("card", e);
+  function handleFavorites(e: any) {
+    //console.log("card", e);
     console.log("favorites", favorite);
-    if (favorite.includes(e)) {
+    if (favorite.some(fav => fav.id === e)) {
       const novo = favorite.filter((f: any) => f != e);
       setFavorite(novo);
     } else {
-      setFavorite([...favorite, e]);
+      setFavorite([...favorite, evento]);
     }
   }
-
   return (
     <>
+
       <Card key={id} sx={{ height: 300, width: 280, bgcolor:'white', display:'flex'}}>
           <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent:"space-between" }}>
             <TypographyContainer>

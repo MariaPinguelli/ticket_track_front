@@ -5,6 +5,7 @@ import CardList from "../components/CardList";
 import Navbar from "../components/Navbar";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import { Grid } from "@mui/material";
 
 
 
@@ -39,16 +40,22 @@ getEvents();
   <Container>
    <Navbar></Navbar>
     <EventContainer>
-      { evento.length === 0 ? <Box display={'flex'}><CircularProgress/></Box> :
-          evento && evento.map((evento: { id: any; description: any; name: any; })=>
-            <CardList
-            key={evento.id}
-            description={evento.description}
-            id={evento.id}
-            name={evento.name}>
-            </CardList>)
-      }
-
+      <Box sx={{ marginTop: "400px", padding: "10px", marginLeft: "40px", maxWidth: "900px" }}>
+        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 6, md: 12 }} > 
+          { evento.length === 0 ? <Box display={'flex'}><CircularProgress/></Box> :
+              evento && evento.map((evento: { id: any; description: any; name: any; }) =>
+              <Grid item xs={1} sm={4} md={4}>  
+                <CardList
+                key={evento.id}
+                description={evento.description}
+                id={evento.id}
+                name={evento.name}
+                evento={evento}>
+                </CardList>
+              </Grid> )
+         }
+         </Grid>   
+      </Box> 
     </EventContainer>
   </Container>
   )
