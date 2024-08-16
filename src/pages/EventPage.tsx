@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import CardList from "../components/CardList";
@@ -6,12 +6,14 @@ import Navbar from "../components/Navbar";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
+import { AuthContext } from "../AuthContext";
 
 
 
 
 export default function EventPage() {
-  const [evento, setEvento] = useState([{ id: null, name: null, description: null }]);
+  //const [evento, setEvento] = useState([{ id: null, name: null, description: null }]);
+  const { evento, setEvento } = useContext(AuthContext);
 
   useEffect(() => {
     const response = axios.get(`${import.meta.env.VITE_API_URL}/events`);

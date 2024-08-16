@@ -10,14 +10,13 @@ import EventIcon from '@mui/icons-material/Event';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
-import AddIcon from '@mui/icons-material/Add';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../AuthContext";
 
 export default function Sidebar(props:any) {
   const { open, setOpen } = props;
-  const [openEdtP, setopenEdtP] = useState(true);
-  const [openFav, setOpenFav] = useState(false);
+  const { openFav, setOpenEdtP, setOpenFav, openEdtP } = useContext(AuthContext);
 
   const handleNestedList = () => {
     setOpen(!open);
@@ -26,17 +25,19 @@ export default function Sidebar(props:any) {
   function handleClicks(e:any) {
     switch (e) {
       case "edit-perfil":
-        setopenEdtP(!openEdtP);
+        setOpenEdtP(true);
+        setOpenFav(false);
         break;
-      case "favoritos":
-        setOpenFav(!openFav);
+        case "favoritos":
+        setOpenFav(true);
+        setOpenEdtP(false)
         break;
     }
 
   }
 
   return (
-      <SideBar openEdtP={openEdtP} openFav={openFav}>
+      <SideBar>
         <List sx={{bgcolor:"#DBDBDB", height:"300px"}}>
           <ListItemButton id="edit-perfil" key={"edit-perfil"} onClick={event => handleClicks(event.currentTarget.id)}>
             <ListItemIcon sx={{display:"flex", justifyContent:"center", alignItems:"center", gap:"10px"}}>
@@ -60,21 +61,7 @@ export default function Sidebar(props:any) {
                 <ListItemText primary="FAVORITOS" sx={{color:"#564256", fontWeight:"bold"}}></ListItemText>
               </ListItemIcon>
             </ListItemButton>
-            <Divider />
-            <ListItemButton sx={{pl:4}} id="criar-evento" key={"criar-evento"} onClick={event => handleClicks(event.currentTarget.id)}>
-              <ListItemIcon sx={{display:"flex", justifyContent:"center", alignItems:"center", gap:"10px"}}>
-                <AddIcon sx={{ color: "#564256"}}></AddIcon>
-                <ListItemText primary="CRIAR EVENTO" sx={{color:"#564256", fontWeight:"bold"}}></ListItemText>
-              </ListItemIcon>
-            </ListItemButton>
             <Divider/>
-            <ListItemButton sx={{pl:4}} id="edit-evento" key={"edit-evento"} onClick={event => handleClicks(event.currentTarget.id)}>
-              <ListItemIcon sx={{display:"flex", justifyContent:"center", alignItems:"center", gap:"10px"}}>
-                <EditIcon sx={{ color: "#564256"}}></EditIcon>
-                <ListItemText primary="EDITAR EVENTO" sx={{color:"#564256", fontWeight:"bold"}}></ListItemText>
-              </ListItemIcon>
-            </ListItemButton>
-            <Divider/>  
           </Collapse>
           <Divider />
         </List>

@@ -8,12 +8,12 @@ import FavoritePage from "./FavoriteCardsPage";
 import { AuthContext } from "../AuthContext";
 
 
-export default function EditUser(props) {
+export default function EditUser() {
   const [nameEdit, setNameEdit] = useState(''); 
   const [emailEdit, setEmailEdit] = useState('');
   const [passwordEdit, setPasswordEdit] = useState('');
   const [open, setOpen] = useState(true);
-  const { openFav, openEdtP } = props;
+  const { openFav, openEdtP } = useContext(AuthContext);
 
   async function getUsersTest() {
     return await axios.get('http://localhost:3000/users').
@@ -29,14 +29,17 @@ export default function EditUser(props) {
       <Sidebar
         open={open}
         setOpen={setOpen} />     
-      {openEdtP ? <EditComponent
+      {openFav ? 
+        <FavoritePage /> :
+        <EditComponent
         nameEdit={nameEdit}
         setNameEdit={setNameEdit}
         emailEdit={emailEdit}
         setEmailEdit={setEmailEdit}
         passwordEdit={passwordEdit}
-        setPasswordEdit={setPasswordEdit} /> : 
-        <FavoritePage/> }
+        setPasswordEdit={setPasswordEdit}/> 
+           
+        }
       
     </Container>
   )

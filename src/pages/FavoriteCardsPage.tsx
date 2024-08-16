@@ -72,5 +72,12 @@ overflow-y: scroll;
 const TypographyContainer = styled.div`
 width: 100%;
 height: min-content;
+white-space: normal; /* Permite quebra de linha */
+display: -webkit-box; /* Necessário para a limitação de linhas */
+-webkit-line-clamp: 8; /* Número de linhas visíveis */
+-webkit-box-orient: vertical; /* Orientação do box */
+overflow: hidden; /* Oculta o texto que ultrapassa o espaço */
+text-overflow: ellipsis; /* Adiciona os três pontinhos no final */
+
 
 `

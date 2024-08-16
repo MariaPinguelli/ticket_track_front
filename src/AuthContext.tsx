@@ -7,6 +7,12 @@ export interface AuthContextType {
   favorite: Event[],
   setFavorite: Dispatch<SetStateAction<Event[]>>,
   setUser: Function,
-  BASE_URL:string
+  BASE_URL: string,
+  setOpenFav: Function,
+  openFav: boolean,
+  setOpenEdtP: Function,
+  openEdtP: boolean
+  evento: [],
+  setEvento: Function
 }
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType);

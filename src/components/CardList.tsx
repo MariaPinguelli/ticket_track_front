@@ -27,10 +27,10 @@ export default function CardList(props: any) {
     <>
 
       <Card key={id} sx={{ height: 300, width: 280, bgcolor:'white', display:'flex'}}>
-          <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent:"space-between" }}>
+        <CardContent sx={{ display:"flex", flexDirection: 'column', justifyContent: "space-between" }}>
             <TypographyContainer>
               <Typography sx={{fontSize: 18, fontWeight:'bold', fontFamily:"Roboto, sans serif"}} color={'GrayText'}>{name}</Typography>
-              <Typography sx={{ fontSize: 16, color: '#590925', fontWeight: "400" }}>{description}</Typography>
+              <Typography sx={{ fontSize: 16, color: '#590925', fontWeight: "400"}}>{description}</Typography>
             </TypographyContainer>
              <IconButton aria-label={id} sx={{width:"40px"}} onClick={e => handleFavorites(e.currentTarget.ariaLabel)}>
             <BookmarkIcon sx={{ display: "flex", left: "0", bottom: "0", alignItems: "flex-end" }} />
@@ -45,5 +45,11 @@ export default function CardList(props: any) {
 const TypographyContainer = styled.div`
 width: 100%;
 height: min-content;
+white-space: normal; /* Permite quebra de linha */
+display: -webkit-box; /* Necessário para a limitação de linhas */
+-webkit-line-clamp: 8; /* Número de linhas visíveis */
+-webkit-box-orient: vertical; /* Orientação do box */
+overflow: hidden; /* Oculta o texto que ultrapassa o espaço */
+text-overflow: ellipsis; /* Adiciona os três pontinhos no final */
 
 `
