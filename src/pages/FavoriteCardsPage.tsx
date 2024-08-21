@@ -9,7 +9,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-
+//http:..../user/id/event
 
 export default function FavoritePage() {
   const { favorite, setFavorite } = useContext(AuthContext);

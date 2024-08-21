@@ -32,10 +32,10 @@ export default function LogInPage() {
     const body = { email, password };
     return axios.post(`${BASE_URL}/users`, body)
       .then(res => {
+        console.log(res.data);
         const { name, email, token } = res.data;
         setUser({ name, email, token });
         localStorage.setItem("user", JSON.stringify({ name, email, token }));
-        
       })
       .catch(e => console.log(e.reponse.data));
   }

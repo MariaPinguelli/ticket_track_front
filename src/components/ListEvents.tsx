@@ -18,11 +18,13 @@ import { useState, useContext } from "react";
 import Button from '@mui/material/Button';
 import Events from "../model/Events";
 import axios from "axios";
-
+import 'dayjs/locale/pt-br'
+import dayjs from "dayjs";
 export default function ListEvents() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [id, setId] = useState(undefined);
-  const { evento, BASE_URL } =  useContext(AuthContext);
+  const { evento, BASE_URL } = useContext(AuthContext);
+  dayjs.locale('pt-br');
  
   function handleDialog(e:any) {
     if (dialogOpen === false) {
@@ -49,7 +51,7 @@ export default function ListEvents() {
     <Container>
       <TableContainer sx={{ maxWidth: "700px", marginTop: "100px", fontFamily: "Roboto", color: "GrayText" }} component={Paper}>
         <Table>
-          <TableHead>
+          <TableHead sx={{bgcolor:"#B26262"}}>
             <TableRow sx={{display:"flex", justifyContent:"space-between"}}>
               <TableCell align="center">ID</TableCell>
               <TableCell align="center">Nome</TableCell>
@@ -64,11 +66,11 @@ export default function ListEvents() {
                 <TableCell>{e.id}</TableCell>
                 <TableCell>{e.name}</TableCell>
                 <TableCell>{e.description}</TableCell>
-                <TableCell>{e.date}</TableCell>
+                <TableCell>{dayjs(e.date).locale("pt-br").format("DD/MM/YYYY HH:mm")}</TableCell>
                 <IconButton  component="button" key={e.id} id={e.id === null? e.id : e.id.toString()} onClick={(e) => handleDialog(e.currentTarget.id)}>
                   <DeleteOutline />
                 </IconButton>
-                <Dialog
+                <Dialog 
                   open={dialogOpen}
                   aria-labelledby="alert-dialog-title"
                   aria-describedby="alert-dialog-description"
