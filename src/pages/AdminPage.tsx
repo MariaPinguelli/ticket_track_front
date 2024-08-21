@@ -13,35 +13,21 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import axios from "axios";
-import { IconButton } from "@mui/material";
-import { DeleteOutline } from "@mui/icons-material";
 import { AuthContext } from "../AuthContext";
+import ListUsers from "../components/ListUsers";
+import ListEvents from "../components/ListEvents";
 
 
 export default function AdminPage() {
   const [open, setOpen] = useState(true);
-  const [allUsers, setAllUsers] = useState<any[]>([]);
   const [openEvent, setOpenEvent] = useState(true);
   const [openUsers, setOpenUsers] = useState(false);
-  const { evento, setEvento } = useContext(AuthContext);
+  const { evento, setEvento, BASE_URL } = useContext(AuthContext);
   const handleNestedList = () => {
     setOpen(!open);
   };
-
-  console.log(evento);
-  interface Users {
-    id: number,
-    name: string,
-    email:string
-  }
+  
   function handleClicks(e:any) {
     switch (e) {
       case "edit-evento":
@@ -55,17 +41,16 @@ export default function AdminPage() {
     }
   }
 
-  console.log(allUsers);
+async function handleDeleteEvents(e:any) {
+  const id = parseInt(e[0]);
+  return await axios.delete(`${BASE_URL}/events/${id}`).
+    then(res => { console.log(res.data) }).
+    catch(err => console.log(err.response.data));
+
+}
+  
   useEffect(() => {
-    const users = axios.get(`${import.meta.env.VITE_API_URL}/users`);
-    users.then(res => {
-      const novo = res.data;
-      setAllUsers(novo);
-    }).
-      catch(err => {
-        console.log(err.response.data);
-      });
-    
+   
       const response = axios.get(`${import.meta.env.VITE_API_URL}/events`);
       response.then(res => {
         const novo = res.data;
@@ -117,59 +102,9 @@ export default function AdminPage() {
           <Divider />
         </List>
       </SidebarAdmin>
-      {openUsers ? <TableContainer sx={{ maxWidth: "500px", marginTop: "100px", fontFamily: "Roboto", color: "GrayText" }} component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell align="left">Nome</TableCell>
-              <TableCell align="left">E-mail</TableCell>
-              <TableCell align="left">Excluir</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {allUsers.map((u: Users) => (
-              <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                <TableCell>{u.id}</TableCell>
-                <TableCell>{u.name}</TableCell>
-                <TableCell>{u.email}</TableCell>
-                <IconButton>
-                  <DeleteOutline />
-                </IconButton>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer> :
-        
-
-      <TableContainer sx={{ maxWidth: "700px", marginTop: "100px", fontFamily: "Roboto", color: "GrayText" }} component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell align="left">ID</TableCell>
-              <TableCell align="left">Nome</TableCell>
-              <TableCell align="left">Descrição</TableCell>
-              <TableCell align="left">Data</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody sx={{display:"-webkit-box", }}>
-            {evento.map((e) => (
-              <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                <TableCell>{e.id}</TableCell>
-                <TableCell>{e.name}</TableCell>
-                <TableCell>{e.description}</TableCell>
-                <TableCell>{e.date}</TableCell>
-                <IconButton>
-                  <DeleteOutline />
-                </IconButton>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      
+      {openUsers ?
+        <ListUsers /> :
+        <ListEvents/>
       }
 
     </Container>
