@@ -2,22 +2,24 @@
 import { onMounted, ref } from 'vue'
 import { useQuasar } from 'quasar';
 import axios from 'axios';
+import { useStore } from 'vuex';
 
+const store = useStore();
 const email = ref('')
 const password = ref('')
 const loading = ref(false)
 const $q = useQuasar()
 
-
 async function onSubmit() {
   loading.value = true;
   const body =   { email: email.value, password: password.value }
-  const promise = axios.post(`http://localhost:3000/login`, body)
+  const promise = axios.post(`${process.env.API_URL}/login`, body)
   await promise.then((res) => {
     console.log(res.data.user)
     const user = res.data.user
-    $q.localStorage.setItem("user", JSON.stringify({user}))
+    store.commit('SET_CURRENT_USER', user);
   }).catch((err) => {
+    console.log(err);
     console.log(err.response)
     $q.notify("Data could not be stored due to API error")
   })
