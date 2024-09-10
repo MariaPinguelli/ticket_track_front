@@ -3,12 +3,10 @@ import { onMounted, ref } from 'vue'
 import { useQuasar } from 'quasar';
 import axios from 'axios';
 
-
 const email = ref('')
 const password = ref('')
 const loading = ref(false)
 const $q = useQuasar()
-
 
 
 async function onSubmit() {

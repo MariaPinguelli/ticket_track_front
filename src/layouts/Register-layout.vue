@@ -1,17 +1,26 @@
 <template>
   <q-layout view="hHh lpR fFf">
-
     <q-header elevated class="bg-primary text-white">
-
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
           <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
+            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
-          Title
+          TicketTrack
         </q-toolbar-title>
+        <div class="q-pa-md">
+          <q-btn
+            v-if="labelName?.value === null || labelName?.value === undefined"
+            round
+            dense
+            icon="person"
+            label="Login"
+          />
+
+          <user-button v-else :label="labelName" />
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -19,7 +28,9 @@
       <!-- drawer content -->
     </q-drawer>
 
-    <q-page-container class="fit row wrap justify-center items-start content-start">
+    <q-page-container
+      class="fit row wrap justify-center items-start content-start"
+    >
       <router-view />
     </q-page-container>
 
@@ -27,30 +38,35 @@
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
+            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
-          <div>Title</div>
+          <div>TicketTrack</div>
         </q-toolbar-title>
       </q-toolbar>
     </q-footer>
-
   </q-layout>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script setup>
+import { ref } from "vue";
+import UserButton from "src/components/UserButton.vue";
+import { data } from "autoprefixer";
+const leftDrawerOpen = ref(false);
 
-export default {
-  setup () {
-    const leftDrawerOpen = ref(false)
+const lsUser = localStorage.getItem("user");
+const rightUser = lsUser ? JSON.parse(lsUser?.replace("__q_strn|", "")) : null;
+let labelName = ref(null);
+if (rightUser) {
+  const { user } = rightUser;
+  const { name } = user;
+  labelName.value = name;
+}
 
-    return {
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
+console.log("labelname", labelName.value);
+function toggleLeftDrawer() {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+}
+function onItemClick() {
+  //
 }
 </script>
-
