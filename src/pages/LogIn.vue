@@ -31,6 +31,12 @@ async function onSubmit() {
 
 <template>
   <div class="q-pa-md" style="max-width: 400px">
+      <div >
+        <h1 class="text-center text-bold text-h1 titulo">
+          Login
+        </h1>
+        <QIcon name="person" color="primary" size="32px"/>
+      </div>
       <q-form
         @submit.prevent="onSubmit"
         @reset="onReset"
@@ -60,3 +66,10 @@ async function onSubmit() {
 </template>
 
 
+<style>
+.titulo {
+font-size: 40px;
+}
+
+
+</style>
