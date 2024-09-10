@@ -1,17 +1,28 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useQuasar } from 'quasar';
 import axios from 'axios';
 
-const name = ref('')
+
 const email = ref('')
 const password = ref('')
 const loading = ref(false)
+const $q = useQuasar()
+
+
 
 async function onSubmit() {
   loading.value = true;
-  const body = { user: { name: name.value, email: email.value, password: password.value } }
-  const promise = axios.post(`http://localhost:3000/users`, body)
-  await promise.then((res) => console.log(res.data)).catch((err) => console.log(err.response))
+  const body =   { email: email.value, password: password.value }
+  const promise = axios.post(`http://localhost:3000/login`, body)
+  await promise.then((res) => {
+    console.log(res.data.user)
+    const user = res.data.user
+    $q.localStorage.setItem("user", JSON.stringify({user}))
+  }).catch((err) => {
+    console.log(err.response)
+    $q.notify("Data could not be stored due to API error")
+  })
   loading.value = false;
 }
 
@@ -25,11 +36,6 @@ async function onSubmit() {
         @reset="onReset"
         class="q-gutter-md"
       >
-      <q-input color="primary" outlined bottom-slots v-model="name" type="text" label="Nome" counter clearable
-      lazy-rules
-      :rules="[
-        val => val !== null && val !== '' || 'Por favor, digite o seu nome'
-      ]"/>
       <q-input color="primary" outlined bottom-slots  v-model="email" type="email" label="E-mail" counter clearable
       lazy-rules
       :rules="[
