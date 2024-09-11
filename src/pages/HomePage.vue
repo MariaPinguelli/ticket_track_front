@@ -44,6 +44,7 @@
                 >
                   {{ evento.isExpanded ? 'Mostrar Menos' : 'Mostrar Mais' }}
                 </q-btn>
+                <q-btn round v-if="evento.url" color="blue-10" icon="link" @click="openUrl(evento.url)" />
               </div>
             </q-card-section>
 
@@ -157,6 +158,10 @@ export default {
       if (evento) {
         evento.isExpanded = !evento.isExpanded;
       }
+    },
+
+    openUrl(url){
+      window.open(url, '_blank');
     }
 
   },
