@@ -29,9 +29,8 @@ async function onSubmit() {
   <div class="q-pa-md" style="max-width: 400px">
     <q-card class="card">
       <q-card-section class="column justify-center items-center">
-        <div class="column justify-start items-center">
-          <q-img src="./../assets/ticket smooth & tasty..png" />
-        </div>
+        <q-img src="./../assets/ticket_smooth___tasty.-removebg.png" />
+
         <q-form @submit.prevent="onSubmit" @reset="onReset" class="q-gutter-md">
           <q-input
             color="primary"

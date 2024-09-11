@@ -105,4 +105,10 @@ async function onSubmit() {
   width: 100%;
   max-width: 280px;
 }
+
+.link {
+  text-decoration: none;
+  color: #1976d2;
+  font-weight: bold;
+}
 </style>

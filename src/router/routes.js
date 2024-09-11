@@ -18,7 +18,7 @@ const routes = [
     component: () => import("layouts/Register-layout.vue"),
     children: [
       {
-        path: "/",
+        path: "/user",
         component: () => import("src/pages/UserPage.vue"),
       },
     ],
