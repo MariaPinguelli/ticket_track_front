@@ -28,8 +28,12 @@ const routes = [
     component: () => import("layouts/Register-layout.vue"),
     children: [
       {
-        path: "/home",
+        path: "home", // Altere para evitar duplicidade
         component: () => import("src/pages/HomePage.vue"),
+      },
+      {
+        path: "favorites",
+        component: () => import("src/pages/Favorites.vue"),
       },
     ],
   },
