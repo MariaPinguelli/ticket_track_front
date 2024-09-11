@@ -2,16 +2,17 @@
   <q-layout view="hHh lpR fFf">
     <q-header elevated class="bg-primary text-white">
       <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
-
         <q-toolbar-title>
           <q-avatar class="logo">
-            <img src="./../assets/ticket_smooth___tasty.-removebg.png" />
+            <img
+              src="./../assets/ticket_smooth___tasty.-removebg.png"
+              @click="navigateHome"
+            />
           </q-avatar>
         </q-toolbar-title>
         <div class="q-pa-md">
           <q-btn
-            v-if="labelName?.value === null || labelName?.value === undefined"
+            v-if="!currentUser"
             round
             dense
             icon="person"
@@ -19,15 +20,10 @@
             to="/login"
           />
 
-          <user-button v-else :label="labelName" />
+          <user-button v-else :label="currentUser.name" />
         </div>
       </q-toolbar>
     </q-header>
-
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" elevated>
-      <!-- drawer content -->
-    </q-drawer>
-
     <q-page-container
       class="fit row wrap justify-center items-start content-start"
     >
@@ -47,28 +43,38 @@
   </q-layout>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script>
 import UserButton from "src/components/UserButton.vue";
-import { data } from "autoprefixer";
-const leftDrawerOpen = ref(false);
+import { mapGetters, mapMutations } from "vuex";
 
-const lsUser = localStorage.getItem("user");
-const rightUser = lsUser ? JSON.parse(lsUser?.replace("__q_strn|", "")) : null;
-let labelName = ref(null);
-if (rightUser) {
-  const { user } = rightUser;
-  const { name } = user;
-  labelName.value = name;
-}
+export default {
+  data() {
+    return {
+      leftDrawerOpen: false,
+    };
+  },
+  components: {
+    UserButton,
+  },
 
-console.log("labelname", labelName.value);
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
-}
-function onItemClick() {
-  //
-}
+  computed: {
+    ...mapGetters(["currentUser"]),
+  },
+
+  methods: {
+    ...mapMutations(["SET_CURRENT_USER"]),
+    toggleLeftDrawer() {
+      this.leftDrawerOpen = !this.leftDrawerOpen;
+    },
+    navigateHome() {
+      this.$router.push("/home");
+    },
+  },
+  created() {
+    console.log(this.currentUser);
+    this.SET_CURRENT_USER(this.currentUser);
+  },
+};
 </script>
 <style>
 .logo {
