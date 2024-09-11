@@ -24,6 +24,16 @@ const routes = [
     ],
   },
   {
+    path: "/",
+    component: () => import("layouts/Register-layout.vue"),
+    children: [
+      {
+        path: "/home",
+        component: () => import("src/pages/HomePage.vue"),
+      },
+    ],
+  },
+  {
     path: "/:catchAll(.*)*",
     component: () => import("pages/ErrorNotFound.vue"),
   },
