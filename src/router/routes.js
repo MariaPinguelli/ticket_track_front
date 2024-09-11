@@ -18,8 +18,18 @@ const routes = [
     component: () => import("layouts/Register-layout.vue"),
     children: [
       {
-        path: "/",
+        path: "/user",
         component: () => import("src/pages/UserPage.vue"),
+      },
+    ],
+  },
+  {
+    path: "/",
+    component: () => import("layouts/Register-layout.vue"),
+    children: [
+      {
+        path: "/home",
+        component: () => import("src/pages/HomePage.vue"),
       },
     ],
   },

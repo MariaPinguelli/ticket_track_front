@@ -5,10 +5,9 @@
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
+          <q-avatar class="logo">
+            <img src="./../assets/ticket_smooth___tasty.-removebg.png" />
           </q-avatar>
-          TicketTrack
         </q-toolbar-title>
         <div class="q-pa-md">
           <q-btn
@@ -17,6 +16,7 @@
             dense
             icon="person"
             label="Login"
+            to="/login"
           />
 
           <user-button v-else :label="labelName" />
@@ -36,9 +36,9 @@
 
     <q-footer bordered class="bg-grey-8 text-white">
       <q-toolbar>
-        <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
+        <q-toolbar-title class="row items-center">
+          <q-avatar class="logo">
+            <img src="./../assets/ticket_smooth___tasty.-removebg.png" />
           </q-avatar>
           <div>TicketTrack</div>
         </q-toolbar-title>
@@ -70,3 +70,9 @@ function onItemClick() {
   //
 }
 </script>
+<style>
+.logo {
+  width: 80px;
+  height: 80px;
+}
+</style>
