@@ -1,18 +1,18 @@
-import axios from 'axios'
-import { LocalStorage, SessionStorage } from 'quasar'
+// src/boot/axios.js
+import axios from 'axios';
 
-const user = JSON.parse(localStorage.getItem("user"));
-const {token} = user
-const api = axios.create({
-  baseURL: process.env.API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`,
-  },
-})
+export default async ({ app, store }) => {  
+  const user = store.getters.currentUser || {};
+  const token = user.token || '';
 
-export default ({ app }) => {
-  app.config.globalProperties.$axios = api
-}
+  const api = axios.create({
+    baseURL: process.env.API_URL,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  });
 
-export { api }
+  // Adiciona o axios ao contexto global da aplicação
+  app.config.globalProperties.$axios = api;
+};
