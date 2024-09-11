@@ -23,13 +23,6 @@
 
       <template v-slot:body-cell-actions="props">
         <q-td :props="props">
-          <!-- <q-btn
-            flat
-            color="primary"
-            icon="edit"
-            @click="editUser(props.row)"
-            class="q-mr-sm"
-          /> -->
           <q-btn
             flat
             color="negative"
