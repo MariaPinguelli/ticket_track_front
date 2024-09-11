@@ -34,6 +34,8 @@ const routes = [
       {
         path: "favorites",
         component: () => import("src/pages/Favorites.vue"),
+        path: "/admin/users",
+        component: () => import("src/pages/AdminPages/ManageUsers.vue"),
       },
     ],
   },
