@@ -13,6 +13,7 @@
             :color="props.row.admin ? 'green-9' : 'amber-14'"
             :icon="props.row.admin ? 'check' : 'close'"
             text-color="white"
+            clickable
             @click="() => editAdmin(props.row)"
           >
             {{ props.row.admin ? 'Sim' : 'Não' }}
@@ -85,24 +86,25 @@ export default {
       })
     },
     editAdmin(user){
-      console.log("AAAAAAAAAA", user);
       if (user.admin){
         this.$q.dialog({
           title: "Confirmar",
-          message: `Deseja retirar privilégios de admin de ${user.name}?`
+          message: `Deseja retirar privilégios de admin de ${user.name}?`,
+          cancel: true,
         }).onOk(async () => {
-          await this.editUser(false)
-        })
+          await this.editUser(false, user)
+        }).onCancel(() => {})
       } else {
         this.$q.dialog({
           title: "Confirmar",
-          message: `Deseja promover ${user.name} a admin?`
+          message: `Deseja promover ${user.name} a admin?`,
+          cancel: { color: 'negative' },
         }).onOk(async () => {
-          await this.editUser(true)
+          await this.editUser(true, user)
         })
       }
     },
-    editUser(adminStatus){
+    editUser(adminStatus, user){
       this.$axios.put(`/users/${user.id}`, {admin: adminStatus}).then((res) => {
         this.$q.notify({
           message: `Atualizado!`,

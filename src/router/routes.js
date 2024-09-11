@@ -31,6 +31,10 @@ const routes = [
         path: "/home",
         component: () => import("src/pages/HomePage.vue"),
       },
+      {
+        path: "/admin/users",
+        component: () => import("src/pages/AdminPages/ManageUsers.vue"),
+      },
     ],
   },
   {
